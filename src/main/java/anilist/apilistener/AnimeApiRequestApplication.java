@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApiListenerApplication {
+public class AnimeApiRequestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApiListenerApplication.class, args);
+		SpringApplication.run(AnimeApiRequestApplication.class, args);
 	}
 
 }

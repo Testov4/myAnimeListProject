@@ -20,28 +20,17 @@ public class KafkaServiceImpl implements KafkaService {
     @Value("${spring.kafka.topic.name.produce}")
     private String topicName;
 
-    private final KafkaTemplate<String, Anime> kafkaTemplate;
+    private final KafkaTemplate<String, List<Anime>> kafkaTemplate;
 
     @Override
-    public void sendMessage(Anime data, String key) {
-        log.info("Message sent: {}", data.toString());
-        Message<Anime> message = MessageBuilder
-            .withPayload(data)
-            .setHeader(KafkaHeaders.TOPIC, topicName)
-            .setHeader(KafkaHeaders.KEY, key)
-            .build();
-
-        kafkaTemplate.send(message);
-    }
-
-    @Override
-    public void sendMessage(List<Anime> data, String key) {
+    public void sendMessage(List<Anime> data) {
         Message<List<Anime>> message = MessageBuilder
             .withPayload(data)
-            .setHeader(KafkaHeaders.TOPIC, topicName + "-list")
-            .setHeader(KafkaHeaders.KEY, key)
+            .setHeader(KafkaHeaders.TOPIC, topicName)
             .build();
 
+        log.info("Sending message: {}", data);
         kafkaTemplate.send(message);
     }
+
 }

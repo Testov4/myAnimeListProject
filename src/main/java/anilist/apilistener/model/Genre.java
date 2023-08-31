@@ -1,18 +1,15 @@
 package anilist.apilistener.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class Genre {
 
-    Integer mal_id;
-
-    String type;
-
-    String name;
-
-    String url;
+    @JsonProperty("mal_id")
+    private Integer malId;
+    private String type;
+    private String name;
+    private String url;
 
 }

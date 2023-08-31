@@ -1,18 +1,12 @@
 package anilist.apilistener.service.implementation;
 
-import anilist.apilistener.model.Anime;
-import anilist.apilistener.model.AnimeListWrapper;
 import anilist.apilistener.model.AnimeSearchRequest;
-import anilist.apilistener.model.AnimeWrapper;
 import anilist.apilistener.service.AnimeService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,55 +14,37 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AnimeServiceImpl implements AnimeService {
 
-    private final String url = "https://api.jikan.moe/v4/anime";
+    @Value("${api.url}")
+    private String apiUrl;
 
     private final RestTemplate restTemplate;
 
-    final ObjectMapper mapper = new ObjectMapper();
-
     @Override
-    public Anime findAnimeById(Integer id) throws JsonProcessingException {
-        return jsonUrlToAnimeObject("/" + id);
-    }
-
-    @Override
-    public List<Anime> findAnimeByParameters(AnimeSearchRequest animeSearchRequest) throws JsonProcessingException {
-        String json = restTemplate.getForObject(buildSearchUrl(animeSearchRequest), String.class);
-        return mapper.readValue(json, AnimeListWrapper.class).getData();
-    }
-
-    private Anime jsonUrlToAnimeObject(String jsonUrl) throws JsonProcessingException {
-        String json = restTemplate.getForObject(url + jsonUrl, String.class);
-        return mapper.readValue(json, AnimeWrapper.class).getData();
+    public String requestAnimeListByParameters(AnimeSearchRequest animeSearchRequest) {
+        return restTemplate.getForObject(buildSearchUrl(animeSearchRequest), String.class);
     }
 
     private String buildSearchUrl(AnimeSearchRequest animeSearchRequest) {
-        StringBuilder searchUrl = new StringBuilder(url)
-            .append("?");
-
-        addToUrlIfPresent(searchUrl, "q", animeSearchRequest.getTitle());
-        addToUrlIfPresent(searchUrl, "type", animeSearchRequest.getType());
-        addToUrlIfNonEmptyList(searchUrl, "genres", animeSearchRequest.getGenres());
-        addToUrlIfNonEmptyList(searchUrl, "producers", animeSearchRequest.getProducers());
-
-        log.info("built search url: {}", searchUrl);
-        return searchUrl.toString();
-    }
-
-
-    private void addToUrlIfPresent(StringBuilder urlBuilder, String paramName, String paramValue) {
-        Optional.ofNullable(paramValue)
-            .filter(value -> !value.isEmpty())
-            .ifPresent(value -> urlBuilder.append('&').append(paramName).append('=').append(value));
-    }
-
-    private void addToUrlIfNonEmptyList(StringBuilder urlBuilder, String paramName, List<Integer> paramList) {
-        if (!paramList.isEmpty()) {
-            String paramValue = paramList.stream()
+        StringBuilder searchUrl = new StringBuilder(apiUrl)
+            .append("?")
+            .append("&q=")
+            .append(animeSearchRequest.getTitle())
+            .append("&genres=")
+            .append(animeSearchRequest.getGenres()
+                .stream()
                 .map(String::valueOf)
-                .collect(Collectors.joining(","));
-            urlBuilder.append('&').append(paramName).append('=').append(paramValue);
+                .collect(Collectors.joining(",")))
+            .append("&producers=")
+            .append(animeSearchRequest.getProducers()
+                .stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(",")));
+        if (!animeSearchRequest.getType().isEmpty()) {
+            searchUrl.append("&type=").append(animeSearchRequest.getType());
         }
+
+        log.info("built request url: {}", searchUrl);
+        return searchUrl.toString();
     }
 
 }

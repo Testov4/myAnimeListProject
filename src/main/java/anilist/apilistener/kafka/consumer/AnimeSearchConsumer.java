@@ -10,17 +10,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-import java.util.Arrays;
 import java.util.List;
 
 @Component
 @Slf4j
 @RequiredArgsConstructor
-@KafkaListener(topics = "${spring.kafka.topic.name.consume}", groupId = "groupId")
+@KafkaListener(topics = "${spring.kafka.topic.name.consume}")
 public class AnimeSearchConsumer {
 
     private final AnimeService animeService;
@@ -30,13 +26,14 @@ public class AnimeSearchConsumer {
     private final KafkaService kafkaService;
 
     @KafkaHandler
-    void listener(@Payload String data, @Header(KafkaHeaders.RECEIVED_KEY) String key) throws JsonProcessingException {
-        log.info("Listener with key:{} received: {}", key, data);
-        AnimeSearchRequest request = deserializerService.convertToAnimeSearchRequest(data);
-        log.info("Data serialized: {}", request);
-        List<Anime> animeList = animeService.findAnimeByParameters(request);
-        log.info("List from API received: {}", Arrays.toString(animeList.toArray()));
-        kafkaService.sendMessage(animeList, key);
-        log.info("Message sent: {}", Arrays.toString(animeList.toArray()));
+    void listenAnimeSearchRequest(String data) throws JsonProcessingException {
+        log.info("Listener received: {}", data);
+        AnimeSearchRequest request = deserializerService.deserializeAnimeSearchRequest(data);
+        log.info("Data deserialized: {}", request);
+        String animeListJson = animeService.requestAnimeListByParameters(request);
+        log.info("List from API received: {}", animeListJson);
+        List<Anime> animeList = deserializerService.deserializeAnimeList(animeListJson);
+        kafkaService.sendMessage(animeList);
+        log.info("Message sent: {}", animeList);
     }
 }
