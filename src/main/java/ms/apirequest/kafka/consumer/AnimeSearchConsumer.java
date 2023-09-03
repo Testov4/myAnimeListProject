@@ -1,11 +1,11 @@
-package anilist.apilistener.kafka.consumer;
+package ms.apirequest.kafka.consumer;
 
-import anilist.apilistener.exception.ApiErrorResponseException;
-import anilist.apilistener.exception.WrongRequestFormatException;
-import anilist.apilistener.model.Anime;
-import anilist.apilistener.service.AnimeService;
-import anilist.apilistener.service.DeserializerService;
-import anilist.apilistener.service.KafkaService;
+import ms.apirequest.exception.ApiErrorResponseException;
+import ms.apirequest.exception.WrongRequestFormatException;
+import ms.apirequest.model.Anime;
+import ms.apirequest.service.AnimeService;
+import ms.apirequest.service.DeserializerService;
+import ms.apirequest.service.KafkaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaHandler;

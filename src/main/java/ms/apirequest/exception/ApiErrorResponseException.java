@@ -1,4 +1,4 @@
-package anilist.apilistener.exception;
+package ms.apirequest.exception;
 
 public class ApiErrorResponseException extends Exception{
 

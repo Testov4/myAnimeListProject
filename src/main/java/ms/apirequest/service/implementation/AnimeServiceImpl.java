@@ -1,10 +1,10 @@
-package anilist.apilistener.service.implementation;
+package ms.apirequest.service.implementation;
 
-import anilist.apilistener.exception.ApiErrorResponseException;
-import anilist.apilistener.model.Anime;
-import anilist.apilistener.model.ResponseWrapper;
-import anilist.apilistener.openfeign.AnimeRequestClient;
-import anilist.apilistener.service.AnimeService;
+import ms.apirequest.exception.ApiErrorResponseException;
+import ms.apirequest.model.Anime;
+import ms.apirequest.model.ResponseWrapper;
+import ms.apirequest.openfeign.AnimeRequestClient;
+import ms.apirequest.service.AnimeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

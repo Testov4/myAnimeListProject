@@ -1,4 +1,4 @@
-package anilist.apilistener.configuration;
+package ms.apirequest.configuration;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

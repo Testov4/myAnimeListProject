@@ -1,4 +1,4 @@
-package anilist.apilistener.service;
+package ms.apirequest.service;
 
 import java.util.Map;
 

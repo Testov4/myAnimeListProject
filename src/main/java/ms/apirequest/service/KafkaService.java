@@ -1,6 +1,6 @@
-package anilist.apilistener.service;
+package ms.apirequest.service;
 
-import anilist.apilistener.model.Anime;
+import ms.apirequest.model.Anime;
 import java.util.List;
 
 public interface KafkaService {

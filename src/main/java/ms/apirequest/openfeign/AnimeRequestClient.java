@@ -1,6 +1,6 @@
-package anilist.apilistener.openfeign;
+package ms.apirequest.openfeign;
 
-import anilist.apilistener.model.ResponseWrapper;
+import ms.apirequest.model.ResponseWrapper;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;

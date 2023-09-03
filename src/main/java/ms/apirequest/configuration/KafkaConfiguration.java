@@ -1,6 +1,6 @@
-package anilist.apilistener.configuration;
+package ms.apirequest.configuration;
 
-import anilist.apilistener.model.Anime;
+import ms.apirequest.model.Anime;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;

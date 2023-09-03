@@ -1,10 +1,10 @@
-package anilist.apilistener.model;
+package ms.apirequest.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class Studio {
+public class Genre {
 
     @JsonProperty("mal_id")
     private Integer malId;

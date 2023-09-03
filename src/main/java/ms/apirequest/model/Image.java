@@ -1,4 +1,4 @@
-package anilist.apilistener.model;
+package ms.apirequest.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

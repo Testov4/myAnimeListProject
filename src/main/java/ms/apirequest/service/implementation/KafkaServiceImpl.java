@@ -1,7 +1,7 @@
-package anilist.apilistener.service.implementation;
+package ms.apirequest.service.implementation;
 
-import anilist.apilistener.model.Anime;
-import anilist.apilistener.service.KafkaService;
+import ms.apirequest.model.Anime;
+import ms.apirequest.service.KafkaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
