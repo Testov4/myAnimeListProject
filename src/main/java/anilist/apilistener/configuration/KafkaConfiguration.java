@@ -27,6 +27,9 @@ public class KafkaConfiguration {
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
+    @Value("${spring.kafka.topic.name.produce}")
+    private String responseTopicName;
+
     public Map<String, Object> producerConfig() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -67,4 +70,11 @@ public class KafkaConfiguration {
     public KafkaTemplate<String, List<Anime>> kafkaTemplate(ProducerFactory<String, List<Anime>> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
+
+    @Bean
+    public String responseTopicName() {
+        return responseTopicName;
+    }
+
+
 }

@@ -1,8 +1,11 @@
 package anilist.apilistener.service;
 
-import anilist.apilistener.model.AnimeSearchRequest;
+import anilist.apilistener.exception.ApiErrorResponseException;
+import anilist.apilistener.model.Anime;
+import java.util.List;
+import java.util.Map;
 
 public interface AnimeService {
 
-    String requestAnimeListByParameters(AnimeSearchRequest animeSearchRequest);
+    List<Anime> requestAnimeListByParameters(Map<String, Object> animeSearchRequest) throws ApiErrorResponseException;
 }

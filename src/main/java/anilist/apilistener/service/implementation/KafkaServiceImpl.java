@@ -4,7 +4,6 @@ import anilist.apilistener.model.Anime;
 import anilist.apilistener.service.KafkaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
@@ -17,8 +16,7 @@ import java.util.List;
 @Slf4j
 public class KafkaServiceImpl implements KafkaService {
 
-    @Value("${spring.kafka.topic.name.produce}")
-    private String topicName;
+    private final String responseTopicName;
 
     private final KafkaTemplate<String, List<Anime>> kafkaTemplate;
 
@@ -26,7 +24,7 @@ public class KafkaServiceImpl implements KafkaService {
     public void sendMessage(List<Anime> data) {
         Message<List<Anime>> message = MessageBuilder
             .withPayload(data)
-            .setHeader(KafkaHeaders.TOPIC, topicName)
+            .setHeader(KafkaHeaders.TOPIC, responseTopicName)
             .build();
 
         log.info("Sending message: {}", data);

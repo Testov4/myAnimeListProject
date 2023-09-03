@@ -7,5 +7,4 @@ public interface KafkaService {
 
     void sendMessage(List<Anime> data);
 
-
 }

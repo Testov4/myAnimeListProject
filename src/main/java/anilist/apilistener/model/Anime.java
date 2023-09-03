@@ -2,8 +2,8 @@ package anilist.apilistener.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class Anime {
@@ -11,7 +11,7 @@ public class Anime {
     @JsonProperty("mal_id")
     private Integer malId;
     private String url;
-    private HashMap<String, Image> images;
+    private Map<String, Image> images;
     private String title;
     @JsonProperty("title_english")
     private String titleEnglish;
