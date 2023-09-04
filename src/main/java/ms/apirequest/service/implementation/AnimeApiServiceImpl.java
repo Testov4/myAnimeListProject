@@ -4,7 +4,7 @@ import ms.apirequest.exception.ApiErrorResponseException;
 import ms.apirequest.model.Anime;
 import ms.apirequest.model.ResponseWrapper;
 import ms.apirequest.openfeign.AnimeRequestClient;
-import ms.apirequest.service.AnimeService;
+import ms.apirequest.service.AnimeApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class AnimeServiceImpl implements AnimeService {
+public class AnimeApiServiceImpl implements AnimeApiService {
 
     private final AnimeRequestClient animeRequestClient;
 
@@ -25,7 +25,7 @@ public class AnimeServiceImpl implements AnimeService {
             log.error("Api error response status: {}, error response type: {}", response.getStatus(), response.getType());
             throw new ApiErrorResponseException("Api response contains error");
         } else {
-            return animeRequestClient.searchAnime(animeSearchRequest).getData();
+            return response.getData();
         }
     }
 }

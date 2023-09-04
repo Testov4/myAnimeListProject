@@ -1,7 +1,7 @@
 package ms.apirequest.service.implementation;
 
 import ms.apirequest.exception.WrongRequestFormatException;
-import ms.apirequest.service.DeserializerService;
+import ms.apirequest.service.RequestDeserializerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class DeserializerServiceImpl implements DeserializerService {
+public class RequestDeserializerServiceImpl implements RequestDeserializerService {
 
     private final ObjectMapper mapper;
 

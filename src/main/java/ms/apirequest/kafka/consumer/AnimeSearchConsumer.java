@@ -3,8 +3,8 @@ package ms.apirequest.kafka.consumer;
 import ms.apirequest.exception.ApiErrorResponseException;
 import ms.apirequest.exception.WrongRequestFormatException;
 import ms.apirequest.model.Anime;
-import ms.apirequest.service.AnimeService;
-import ms.apirequest.service.DeserializerService;
+import ms.apirequest.service.AnimeApiService;
+import ms.apirequest.service.RequestDeserializerService;
 import ms.apirequest.service.KafkaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,18 +20,18 @@ import java.util.Map;
 @KafkaListener(topics = "${spring.kafka.topic.name.consume}")
 public class AnimeSearchConsumer {
 
-    private final AnimeService animeService;
+    private final AnimeApiService animeApiService;
 
-    private final DeserializerService deserializerService;
+    private final RequestDeserializerService requestDeserializerService;
 
     private final KafkaService kafkaService;
 
     @KafkaHandler
     void listenAnimeSearchRequest(String data) {
         try {
-            Map request = deserializerService.deserializeAnimeSearchRequest(data);
+            Map request = requestDeserializerService.deserializeAnimeSearchRequest(data);
             log.info("Data deserialized: {}", request);
-            List<Anime> animeList = animeService.requestAnimeListByParameters(request);
+            List<Anime> animeList = animeApiService.requestAnimeListByParameters(request);
             log.info("List from API received: {}", animeList);
             kafkaService.sendMessage(animeList);
             log.info("Message sent: {}", animeList);
