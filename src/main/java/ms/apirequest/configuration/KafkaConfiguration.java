@@ -1,5 +1,6 @@
 package ms.apirequest.configuration;
 
+import ms.apirequest.kafka.KafkaErrorHandler;
 import ms.apirequest.model.Anime;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -58,6 +59,7 @@ public class KafkaConfiguration {
         ConcurrentKafkaListenerContainerFactory<String, Object> factory =
             new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory);
+        factory.setCommonErrorHandler(new KafkaErrorHandler());
         return factory;
     }
 
@@ -75,6 +77,5 @@ public class KafkaConfiguration {
     public String responseTopicName() {
         return responseTopicName;
     }
-
 
 }

@@ -2,7 +2,6 @@ package ms.apirequest.service.implementation;
 
 import ms.apirequest.exception.ApiErrorResponseException;
 import ms.apirequest.model.Anime;
-import ms.apirequest.model.ResponseWrapper;
 import ms.apirequest.openfeign.AnimeRequestClient;
 import ms.apirequest.service.AnimeApiService;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +18,12 @@ public class AnimeApiServiceImpl implements AnimeApiService {
     private final AnimeRequestClient animeRequestClient;
 
     @Override
-    public List<Anime> requestAnimeListByParameters(Map<String, Object> animeSearchRequest) throws ApiErrorResponseException {
-        ResponseWrapper response = animeRequestClient.searchAnime(animeSearchRequest);
-        if (response.getData() == null) {
-            log.error("Api error response status: {}, error response type: {}", response.getStatus(), response.getType());
-            throw new ApiErrorResponseException("Api response contains error");
-        } else {
-            return response.getData();
+    public List<Anime> requestAnimeListByParameters(Map<String, Object> animeSearchRequest) {
+        try {
+            return animeRequestClient.searchAnime(animeSearchRequest).getData();
+        } catch (ApiErrorResponseException e) {
+            log.error("Api response contains error: {}", e.getMessage());
+            throw new RuntimeException();
         }
     }
 }
