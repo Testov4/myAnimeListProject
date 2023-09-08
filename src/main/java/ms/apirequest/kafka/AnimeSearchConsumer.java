@@ -26,11 +26,11 @@ public class AnimeSearchConsumer {
 
     @KafkaHandler
     void listenAnimeSearchRequest(String data) {
-            Map request = requestDeserializerService.deserializeAnimeSearchRequest(data);
-            log.info("Data deserialized: {}", request);
-            List<Anime> animeList = animeApiService.requestAnimeListByParameters(request);
-            log.info("List from API received: {}", animeList);
-            kafkaService.sendMessage(animeList);
-            log.info("Message sent: {}", animeList);
+        Map request = requestDeserializerService.deserializeAnimeSearchRequest(data);
+        log.info("Data deserialized: {}", request);
+        List<Anime> animeList = animeApiService.requestAnimeListByParameters(request);
+        log.info("List from API received: {}", animeList);
+        kafkaService.sendMessage(animeList);
+        log.info("Message sent: {}", animeList);
     }
 }
