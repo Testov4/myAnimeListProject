@@ -8,4 +8,5 @@ public class AnimeDbServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(AnimeDbServiceApplication.class, args);
     }
+
 }
