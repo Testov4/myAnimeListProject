@@ -23,7 +23,7 @@ public class RequestDeserializerServiceImpl implements RequestDeserializerServic
         } catch (JsonProcessingException e) {
             log.error("Failed using mapper to read JSON: {}", e.getMessage());
             log.debug("JSON that caused the exception: {}", json);
-            throw new WrongRequestFormatException("Failed to deserialize JSON: ", e);
+            throw new WrongRequestFormatException("Failed to deserialize JSON");
         }
     }
 

@@ -18,7 +18,7 @@ public class KafkaServiceImpl implements KafkaService {
 
     private final String responseTopicName;
 
-    private final KafkaTemplate<String, List<Anime>> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @Override
     public void sendMessage(List<Anime> data) {

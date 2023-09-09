@@ -41,23 +41,23 @@ public class AnimeApiServiceImplTest {
     @BeforeAll
     void createResponseWithList() {
         responseWithList = new ApiResponse();
-        Anime anime1 = Anime.builder()
-            .malId(1)
-            .title("test_title_1")
-            .type("tv")
-            .build();
-        Anime anime2 = Anime.builder()
-            .malId(2)
-            .title("test_title_2")
-            .type("tv")
-            .build();
-        Anime anime3 = Anime.builder()
-            .malId(3)
-            .title("test_title_3")
-            .type("tv")
-            .build();
-
-        responseWithList.setData(List.of(anime1, anime2, anime3));
+        responseWithList.setData(List.of(
+            Anime.builder()
+                .malId(1)
+                .title("test_title_1")
+                .type("tv")
+                .build(),
+            Anime.builder()
+                .malId(2)
+                .title("test_title_2")
+                .type("tv")
+                .build(),
+            Anime.builder()
+                .malId(3)
+                .title("test_title_3")
+                .type("tv")
+                .build()
+            ));
     }
 
     @Test

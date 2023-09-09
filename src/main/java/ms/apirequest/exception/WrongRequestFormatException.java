@@ -1,7 +1,7 @@
 package ms.apirequest.exception;
 
 public class WrongRequestFormatException extends RuntimeException{
-    public WrongRequestFormatException(String message, Throwable cause) {
-        super(message, cause);
+    public WrongRequestFormatException(String message) {
+        super(message);
     }
 }
